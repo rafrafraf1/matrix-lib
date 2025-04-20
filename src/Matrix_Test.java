@@ -2,18 +2,25 @@
 public class Matrix_Test {
     public static void main(String[] args) {
 
+        // examples of pretty print on identity matrices
         Square_Matrix i4 = identity(4);
-        System.out.println(i4);
+        i4.add(i4.add(i4), true);
 
-        Matrix rand1 = rand_matrix(4, 5);
-        Matrix rand2 = rand_matrix(4, 5);
+
+        // examples of pretty print addition and subtraction
+        Matrix rand1 = rand_matrix(3, 2);
+        Matrix rand2 = rand_matrix(3, 2);
         rand1.add(rand2, true);
+        rand1.sub(rand2, true);
 
-        Matrix res = i4.add(i4.add(i4), true);
 
+        // examples of pretty print with different decimal places output
         System.out.println(rand1.toString(0));
         System.out.println(rand1.toString(1));
-        System.out.println(rand1.toString(2));
+        System.out.println(rand1.toString(5));
+
+
+
     }
 
     public static Square_Matrix identity(int n) {

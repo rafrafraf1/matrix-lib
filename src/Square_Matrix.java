@@ -15,4 +15,6 @@ public class Square_Matrix extends Matrix {
     public int getSize() {
         return n;
     }
+
+
 }

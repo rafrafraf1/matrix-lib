@@ -1,17 +1,23 @@
 /*
     matrix object with operations and pretty prints
 
-
-
+    methods to add:
+    - square matrix multiplication
+    - square matrix powers
+    - to echelon form
+    - is invertible
+    - get i'th row
+    - get j'th column
+    - get determinant
 */
 
 public class Matrix {
 
     protected final int rows;
     protected final int cols;
-    protected final double[][] matrix;
+    protected double[][] data;
 
-    protected int decimal_points = 3; // shows decimal places for matrix in print **No effect on actual data**
+    protected int decimal_points = 2; // shows decimal places for matrix in print **No effect on actual data**
 
     public Matrix(int rows, int cols) {
         if (!isValidMatrix(rows, cols)) {
@@ -19,7 +25,7 @@ public class Matrix {
         }
         this.rows = rows;
         this.cols = cols;
-        matrix = new double[rows][cols];
+        this.data = new double[rows][cols];
     }
 
     // receives 2d double array as matrix
@@ -29,7 +35,7 @@ public class Matrix {
         }
         this.rows = matrix.length;
         this.cols = matrix[0].length;
-        this.matrix = matrix;
+        this.data = matrix;
     }
 
     // matrix addition
@@ -40,7 +46,7 @@ public class Matrix {
         Matrix result = new Matrix(rows, cols);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                result.matrix[i][j] = matrix[i][j] + other.matrix[i][j];
+                result.data[i][j] = this.data[i][j] + other.data[i][j];
             }
         }
         return result;
@@ -56,14 +62,43 @@ public class Matrix {
         return result;
     }
 
+    public Matrix sub(Matrix other) {
+        return sub(other, false);
+    }
+    public Matrix sub(Matrix other, boolean print) {
+        Matrix result = add(getAdditiveInverse(other));
+
+        if (print) {
+            Matrix.prettyPrintOperation(this, "-", other, result);
+        }
+
+        return result;
+    }
+
     public int getRows() {
         return rows;
     }
     public int getCols() {
         return cols;
     }
+    // returns matrix data in 2d boolean array
+    public double[][] getData() {
+        return this.data;
+    }
 
     // ========================================= helpers
+
+    private Matrix getAdditiveInverse(Matrix matrix) {
+        double[][] result = new double[matrix.getRows()][matrix.getCols()];
+        double[][] temp = matrix.getData();
+
+        for (int i = 0; i < matrix.getRows(); i++) {
+            for (int j = 0; j < matrix.getCols(); j++) {
+                result[i][j] = -temp[i][j];
+            }
+        }
+        return new Matrix(result);
+    }
 
     // true if valid row/height for matrix
     private boolean isValidMatrix(int rows, int cols) {
@@ -131,7 +166,7 @@ public class Matrix {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                double val = matrix[i][j];
+                double val = this.data[i][j];
 
                 // Round to specified decimals, but drop .0 if whole
                 String s = String.format(formatStr, val);
