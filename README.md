@@ -125,8 +125,3 @@ Clone the repo and run `Matrix_Showcase.java` to see output examples for:
 - Pretty-print addition, subtraction, multiplication
 - Random matrix generation
 - Identity matrix chaining
-
----
-
-## 📄 License
-MIT
