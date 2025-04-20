@@ -3,23 +3,28 @@ public class Matrix_Test {
     public static void main(String[] args) {
 
         // examples of pretty print on identity matrices
-        Square_Matrix i4 = identity(4);
-        i4.add(i4.add(i4), true);
+        /*Square_Matrix i4 = identity(4);
+        i4.add(i4.add(i4), true);*/
 
 
         // examples of pretty print addition and subtraction
-        Matrix rand1 = rand_matrix(3, 2);
+        /*Matrix rand1 = rand_matrix(3, 2);
         Matrix rand2 = rand_matrix(3, 2);
         rand1.add(rand2, true);
-        rand1.sub(rand2, true);
+        rand1.sub(rand2, true);*/
 
 
         // examples of pretty print with different decimal places output
-        System.out.println(rand1.toString(0));
+        /*System.out.println(rand1.toString(0));
         System.out.println(rand1.toString(1));
-        System.out.println(rand1.toString(5));
+        System.out.println(rand1.toString(5));*/
 
+        // examples of pretty print addition and subtraction
+        Matrix m1 = rand_matrix(3, 4);
+        Matrix m2 = rand_matrix(4, 1);
+        m1.dot(m2, true);
 
+        identity(4).dot(m2, true);
 
     }
 

@@ -2,13 +2,12 @@
     matrix object with operations and pretty prints
 
     methods to add:
-    - square matrix multiplication
-    - square matrix powers
     - to echelon form
     - is invertible
     - get i'th row
     - get j'th column
     - get determinant
+    - transpose
 */
 
 public class Matrix {
@@ -38,6 +37,17 @@ public class Matrix {
         this.data = matrix;
     }
 
+    public int getRowNo() {
+        return rows;
+    }
+    public int getColNo() {
+        return cols;
+    }
+    // returns matrix data in 2d boolean array
+    public double[][] getData() {
+        return this.data;
+    }
+
     // matrix addition
     public Matrix add(Matrix other) {
         if (rows != other.rows || cols != other.cols) {
@@ -62,6 +72,7 @@ public class Matrix {
         return result;
     }
 
+    // matrix subtraction
     public Matrix sub(Matrix other) {
         return sub(other, false);
     }
@@ -75,26 +86,43 @@ public class Matrix {
         return result;
     }
 
-    public int getRows() {
-        return rows;
+    // matrix multiplication
+    public Matrix dot(Matrix other, boolean print) {
+        if (this.cols != other.rows) {
+            throw new IllegalArgumentException("rows and cols of matrices are invalid for multiplication");
+        }
+        double[][] result_data = new double[this.rows][other.cols];
+        double sum = 0;
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < other.cols; j++) {
+                for (int k = 0; k < this.cols; k++) {
+                    sum += this.data[i][k] * other.data[k][j];
+                }
+                result_data[i][j] = sum;
+                sum = 0;
+            }
+        }
+        Matrix result = new Matrix(result_data);
+
+        if (print) {
+            Matrix.prettyPrintOperation(this, "×", other, result);
+        }
+
+        return result;
     }
-    public int getCols() {
-        return cols;
+    public Matrix dot(Matrix other) {
+        return dot(other, false);
     }
-    // returns matrix data in 2d boolean array
-    public double[][] getData() {
-        return this.data;
-    }
+
 
     // ========================================= helpers
 
     private Matrix getAdditiveInverse(Matrix matrix) {
-        double[][] result = new double[matrix.getRows()][matrix.getCols()];
-        double[][] temp = matrix.getData();
+        double[][] result = new double[matrix.getRowNo()][matrix.getColNo()];
 
-        for (int i = 0; i < matrix.getRows(); i++) {
-            for (int j = 0; j < matrix.getCols(); j++) {
-                result[i][j] = -temp[i][j];
+        for (int i = 0; i < matrix.getRowNo(); i++) {
+            for (int j = 0; j < matrix.getColNo(); j++) {
+                result[i][j] = -matrix.data[i][j];
             }
         }
         return new Matrix(result);
