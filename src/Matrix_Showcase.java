@@ -1,34 +1,33 @@
 
-public class Matrix_Test {
+public class Matrix_Showcase {
     public static void main(String[] args) {
-
-        // examples of pretty print on identity matrices
-        /*Square_Matrix i4 = identity(4);
-        i4.add(i4.add(i4), true);*/
 
 
         // examples of pretty print addition and subtraction
-        /*Matrix rand1 = rand_matrix(3, 2);
+        System.out.println("\n============================= examples of pretty print addition and subtraction");
+        I(4).add(I(4).add(I(4)), true);
+        Matrix rand1 = rand_matrix(3, 2);
         Matrix rand2 = rand_matrix(3, 2);
-        rand1.add(rand2, true);
-        rand1.sub(rand2, true);*/
-
+        rand1.sub(rand2, true);
 
         // examples of pretty print with different decimal places output
-        /*System.out.println(rand1.toString(0));
+        /*System.out.println("\n============================= examples of pretty print with different decimal places output");
+        System.out.println(rand1.toString(0));
         System.out.println(rand1.toString(1));
         System.out.println(rand1.toString(5));*/
 
-        // examples of pretty print addition and subtraction
+        // examples of pretty print multiplication
+        System.out.println("\n============================= examples of pretty print examples of pretty print addition and subtraction");
         Matrix m1 = rand_matrix(3, 4);
-        Matrix m2 = rand_matrix(4, 1);
+        Matrix m2 = rand_matrix(4, 3);
         m1.dot(m2, true);
 
-        identity(4).dot(m2, true);
+        I(4).dot(m2, true);
 
     }
 
-    public static Square_Matrix identity(int n) {
+    // returns nxn identity matrix
+    public static Square_Matrix I(int n) {
         double[][] id = new double[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
